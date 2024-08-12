@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice API Test</title>
+</head>
+<body>
+    <h2>Test Rice API</h2>
+    <form id="riceForm">
+        <label for="Area">Area:</label>
+        <input type="number" id="Area" name="Area" step="any"><br><br>
+
+        <label for="Perimeter">Perimeter:</label>
+        <input type="number" id="Perimeter" name="Perimeter" step="any"><br><br>
+
+        <label for="Major_Axis_Length">Major Axis Length:</label>
+        <input type="number" id="Major_Axis_Length" name="Major_Axis_Length" step="any"><br><br>
+
+        <label for="Minor_Axis_Length">Minor Axis Length:</label>
+        <input type="number" id="Minor_Axis_Length" name="Minor_Axis_Length" step="any"><br><br>
+
+        <label for="Eccentricity">Eccentricity:</label>
+        <input type="number" id="Eccentricity" name="Eccentricity" step="any"><br><br>
+
+        <label for="Convex_Area">Convex Area:</label>
+        <input type="number" id="Convex_Area" name="Convex_Area" step="any"><br><br>
+
+        <label for="Extent">Extent:</label>
+        <input type="number" id="Extent" name="Extent" step="any"><br><br>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <h3>Result:</h3>
+    <pre id="result"></pre>
+
+    <script>
+        async function submitForm() {
+            const formData = {
+                "Area": [parseFloat(document.getElementById('Area').value)],
+                "Perimeter": [parseFloat(document.getElementById('Perimeter').value)],
+                "Major_Axis_Length": [parseFloat(document.getElementById('Major_Axis_Length').value)],
+                "Minor_Axis_Length": [parseFloat(document.getElementById('Minor_Axis_Length').value)],
+                "Eccentricity": [parseFloat(document.getElementById('Eccentricity').value)],
+                "Convex_Area": [parseFloat(document.getElementById('Convex_Area').value)],
+                "Extent": [parseFloat(document.getElementById('Extent').value)]
+            };
+
+            const response = await fetch('http://TiennguyenTran.pythonanywhere.com/Vector/Rice', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        }
+    </script>
+</body>
+</html>
